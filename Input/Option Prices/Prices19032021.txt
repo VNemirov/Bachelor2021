@@ -1,0 +1,3 @@
+Symbol	Price	IV
+SPX	3913.10	0.2080
+SPY	389.48	0.0294
