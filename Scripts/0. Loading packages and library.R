@@ -36,5 +36,5 @@ sapply(scripts, function(x){war
   print("Done")
   print("==============================================")
 })
-
+print("test af git commit")
 print(paste("Complete in ", Sys.time()-start_time))
