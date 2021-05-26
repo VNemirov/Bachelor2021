@@ -195,14 +195,14 @@ simhedges[1:1000,] %>%
   ggplot(aes(x = n, y = SE))+
   xlab("Antal rebalanceringer")+
   geom_point(size = 0.75)+
-  geom_hline(yintercept = 0,
-             size = 1)+
+  # geom_hline(yintercept = 0,
+  #            size = 1)+
   scale_x_log10(expand = c(0.01,0,0.01,0))+
   scale_y_log10()+
+  geom_smooth(se=F,
+              method = "lm")+
+  annotate("label", x = 100, y = 3, label = paste("Slope=-0.5"), size = 6)+
   ggsave("./Output/Plots/Hedgeerror.PNG",
          width = 16,
          height = 16,
          units = "cm")
-
-
-

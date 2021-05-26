@@ -1,0 +1,3 @@
+Symbol	Price
+SPX	4187.20
+SPY	418.72

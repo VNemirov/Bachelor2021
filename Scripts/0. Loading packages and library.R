@@ -29,12 +29,13 @@ funktioner <- list.files(path = "./Scripts/funktioner/",
 #Sourcing funcitions
 sapply(funktioner, source)
 #Sourcing scripts
-  print("==============================================")#ASCII kunst
-sapply(scripts, function(x){war
+print("==============================================")#ASCII kunst
+sapply(scripts, function(x){
+  start_script <- Sys.time()
   print(x)
   source(x, echo = F)
-  print("Done")
+  print(paste("Done",Sys.time()-start_script))
   print("==============================================")
 })
-print("test af git commit")
+
 print(paste("Complete in ", Sys.time()-start_time))
