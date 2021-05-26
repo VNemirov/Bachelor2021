@@ -72,7 +72,14 @@ SPX_options_25062021 %>% filter(CalcImpliedVol >= 0.01) %>%
   geom_vline(xintercept = 0)+
   geom_smooth(se = FALSE,
               size = 0.4)+
-  
+  annotate("label", x = 0.1, y = 0.4, label = paste0("Volume af calls: ",
+                                                    filter(SPX_options_25062021, Option == "call") %>% 
+                                                      pull(Vol) %>% 
+                                                      sum()," \n",
+                                                     " Volume af puts: ",
+                                                    filter(SPX_options_25062021, Option == "put") %>% 
+                                                      pull(Vol) %>% 
+                                                      sum()))+ 
   ggsave("./Output/Plots/SPX.PNG",
          width = 30,
          height = 12,
@@ -86,7 +93,14 @@ SPY_options_25062021 %>% filter(CalcImpliedVol >= 0.01) %>%
   geom_vline(xintercept = 0)+
   geom_smooth(se = FALSE,
               size = 0.4)+
-  
+  annotate("label", x = 0.1, y = 0.4, label = paste0("Volume af calls: ",
+                                                     filter(SPY_options_25062021, Option == "call") %>% 
+                                                       pull(Vol) %>% 
+                                                       sum(),"\n",
+                                                     " Volume af puts: ",
+                                                     filter(SPY_options_25062021, Option == "put") %>% 
+                                                       pull(Vol) %>% 
+                                                       sum()))+ 
   ggsave("./Output/Plots/SPY.PNG",
          width = 30,
          height = 12,
