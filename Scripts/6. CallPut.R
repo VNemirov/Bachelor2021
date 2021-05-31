@@ -194,7 +194,7 @@ melt(BS_MC_Price_estimator(mu = 0.05, sigma = 0.2, S = 100, endT = 0.75, K = 100
              width = 12,
              height = 12,
              units = "cm")
-    
+
     #Changing volatility
     BS_MC_Price_estimator(mu = 0.05, sigma = 0.2, S = 100, endT = 0.75, K = 100) %>% 
       melt(id.vars = "n") %>% 

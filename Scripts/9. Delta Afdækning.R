@@ -156,7 +156,7 @@ for(i in 1:Paths){
 #   loop_time <- Sys.time()
 #   print(j)
 #   Hedge3 <- cbind(S = rep(NA, Paths), value = rep(NA, Paths), error = rep(NA, Paths))
-#   for(i in 1:100){
+#   for(i in 1:1000){
 #     data <- GBM_data(nsim = 1, dt = 1/j, S0 = 100, sigma = 0.2) %>%
 #       rowid_to_column() %>%
 #       mutate(d1 = (1/(sigma*sqrt(1-time)))*((log(value/K))+(r+sigma^2/2)*(1-time)),
@@ -199,10 +199,107 @@ simhedges[1:1000,] %>%
   #            size = 1)+
   scale_x_log10(expand = c(0.01,0,0.01,0))+
   scale_y_log10()+
-  geom_smooth(se=F,
-              method = "lm")+
+  # geom_smooth(se=F,
+  #             method = "lm")+
   annotate("label", x = 100, y = 3, label = paste("Slope=-0.5"), size = 6)+
   ggsave("./Output/Plots/Hedgeerror.PNG",
          width = 16,
          height = 16,
          units = "cm")
+
+#Commented out and saved
+# #Hedging with wrong volatility
+# wrongsimhedgeslow <- data.frame(n = 1:10000, SE = rep(NA, 10000))
+# sigma_wrong <- 0.1
+# for (j in c(1:9,1:9*10,1:9*100,1:10*1000)){
+#     loop_time <- Sys.time()
+#     print(j)
+#     Hedge <- cbind(S = rep(NA, Paths), value = rep(NA, Paths), error = rep(NA, Paths))
+#     for(i in 1:1000){
+#       data <- GBM_data(nsim = 1, dt = 1/j, S0 = 100, sigma = 0.2) %>%
+#         rowid_to_column() %>%
+#         mutate(d1 = (1/(sigma_wrong*sqrt(1-time)))*((log(value/K))+(r+sigma_wrong^2/2)*(1-time)),
+#                d2 = d1-sigma_wrong*sqrt(endT-time),
+#                optionprice = value*pnorm(d1)-exp(-r*(endT-time))*K*pnorm(d2),
+#                Delta = pnorm(d1)) %>%
+#         mutate(cashflow = case_when(
+#           time == 0 & rowid == 1~ optionprice - Delta*value,
+#           time != 0 & time != 1 & rowid != j + 1 & rowid != 1~ -(Delta-lag(Delta))*value,
+#           rowid == max(rowid) ~ lag(Delta)*value
+#         ),
+#         cashflow = cashflow*exp(r*(1-time)),
+#         cumflow = cumsum(cashflow))
+# 
+#       Hedge[i, 1] <- (data %>% pull(value) %>% rev())[1]
+# 
+#       Hedge[i, 2] <- (data %>%
+#                          pull(cumflow) %>%
+#                          rev())[1]
+# 
+#       Hedge[i, 3] <- abs(max(Hedge[i, 1]-K, 0)-Hedge[i, 2])
+#     }
+#     print(sd(Hedge[,3]))
+#     wrongsimhedgeslow$SE[j] <- sd(Hedge[,3])
+#     print(Sys.time()-loop_time)
+#   }
+# 
+# wrongsimhedgeshigh <- data.frame(n = 1:10000, SE = rep(NA, 10000))
+# sigma_wrong <- 0.3
+# for (j in c(1:9,1:9*10,1:9*100,1:10*1000)){
+#   loop_time <- Sys.time()
+#   print(j)
+#   Hedge <- cbind(S = rep(NA, Paths), value = rep(NA, Paths), error = rep(NA, Paths))
+#   for(i in 1:1000){
+#     data <- GBM_data(nsim = 1, dt = 1/j, S0 = 100, sigma = 0.2) %>%
+#       rowid_to_column() %>%
+#       mutate(d1 = (1/(sigma_wrong*sqrt(1-time)))*((log(value/K))+(r+sigma_wrong^2/2)*(1-time)),
+#              d2 = d1-sigma_wrong*sqrt(endT-time),
+#              optionprice = value*pnorm(d1)-exp(-r*(endT-time))*K*pnorm(d2),
+#              Delta = pnorm(d1)) %>%
+#       mutate(cashflow = case_when(
+#         time == 0 & rowid == 1~ optionprice - Delta*value,
+#         time != 0 & time != 1 & rowid != j + 1 & rowid != 1~ -(Delta-lag(Delta))*value,
+#         rowid == max(rowid) ~ lag(Delta)*value
+#       ),
+#       cashflow = cashflow*exp(r*(1-time)),
+#       cumflow = cumsum(cashflow))
+#     
+#     Hedge[i, 1] <- (data %>% pull(value) %>% rev())[1]
+#     
+#     Hedge[i, 2] <- (data %>%
+#                       pull(cumflow) %>%
+#                       rev())[1]
+#     
+#     Hedge[i, 3] <- abs(max(Hedge[i, 1]-K, 0)-Hedge[i, 2])
+#   }
+#   print(sd(Hedge[,3]))
+#   wrongsimhedgeshigh$SE[j] <- sd(Hedge[,3])
+#   print(Sys.time()-loop_time)
+# }
+# save(wrongsimhedgeslow, file = "./Output/wrongsimhedgeslow.Rdata")
+# save(wrongsimhedgeshigh, file = "./Output/wrongsimhedgeshigh.Rdata")
+load(wrongsimhedgeslow)
+load(wrongsimhedgeshigh)
+
+rbind(cbind(wrongsimhedgeslow, vol = "low"),
+      cbind(wrongsimhedgeshigh, vol = "high")) %>% 
+  drop_na() %>% 
+  ggplot(aes(x = n, y = SE, group = vol))+
+  geom_point()+
+  xlab("Antal rebalanceringer")+
+  geom_point(size = 0.75)+
+  # geom_hline(yintercept = 0,
+  #            size = 1)+
+  scale_x_log10(expand = c(0.01,0,0.05,0))+
+  scale_y_log10()+
+  facet_wrap(.~vol,
+             )+ 
+  theme(
+    strip.background = element_blank(),
+    strip.text.x = element_blank()
+  )+
+  ggsave("./Output/Plots/HedgeerrorWrongVol.PNG",
+         width = 32,
+         height = 16,
+         units = "cm")
+  
