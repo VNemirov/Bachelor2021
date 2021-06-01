@@ -10,37 +10,34 @@ I mappen ./Scripts/funktioner ligger alle definerede funktioner i egen fil.
 
 Forklaring af hvert script:
 
-- 1. S&P Russel priser.R
-Henter S&P500 og Russel2000 indeks priser fra Yahoo,
-og producerer grafik af deres udvikling.
+1. S&P Russel priser.R  
+Henter S&P500 og Russel2000 indeks priser fra Yahoo, og producerer grafik af deres udvikling.
 
-- 2. Fordeling af inkrementer.R
-Udregner log incrementer og plotter og tester normalitet
-ved Shapiro-Wilks test.
+2. Fordeling af inkrementer.R  
+  Udregner log incrementer og plotter og tester normalitet ved Shapiro-Wilks test.
 
-- 3. Lukkede MLE.R
-Udregner MLE'er
+3. Lukkede MLE.R  
+  Udregner MLE'er
 
-- 4. Aktie simulation.R
-Simulerer aktien (hvilken overaskelse) ved brug af definerede GBM funktioner.
+4. Aktie simulation.R  
+  Simulerer aktien (hvilken overaskelse) ved brug af definerede GBM funktioner.
 
-- 5. Monte Carlo.R
-Grafikker af Monte Carlo estimator konvergens for standard og antitetiske variater
+5. Monte Carlo.R  
+  Grafikker af Monte Carlo estimator konvergens for standard og antitetiske variater
 
-- 6. CallPut.R
-Forskellige grafikker af call option relationer samt Monte Carlo estimerede priser.
+6. CallPut.R  
+  Forskellige grafikker af call option relationer samt Monte Carlo estimerede priser.
 
-- 7. Greeks.R
-Grafikker for de forskellige greeks for en europæisk call option.
+7. Greeks.R  
+  Grafikker for de forskellige greeks for en europæisk call option.
 
-- 8. Implicit Volatilitet.R
-Hentede d. 26/5-2021 SPX og SPY optionspriser og udregnede implicite volatiliter 
-for call og put optioner med udløb d. 25/6-2021 (1 måned) for at undgå dividender.
+8. Implicit Volatilitet.R  
+  Hentede d. 26/5-2021 SPX og SPY optionspriser og udregnede implicite volatiliter for call og put optioner med udløb d. 25/6-2021 (1 måned) for at undgå dividender.
 
-- 9. Delta Afdækning.R
-Forskellige Delta afdækninger samt grafer med konvergens af afdækningsfejl.
+9. Delta Afdækning.R  
+  Forskellige Delta afdækninger samt grafer med konvergens af afdækningsfejl.
 
-- 10. Wilmott.R
+10. Wilmott.R  
 Udfører Wilmotts afdækningseksperiment ved brug FToDT og ser på PnL.
 
 R Version og platform:
