@@ -16,11 +16,10 @@ delta_data <- GBM_data(nsim = 1, setSeed = T, seed = "0806", dt = 1/1000, S0 = 1
     geom_label_repel(aes(label = paste(ifelse(time %% 0.25 == 0, round(value, 2),""))),
                      segment.curvature = -0.1,
                      max.overlaps = Inf,
-                     size = 11)+
-    
+                     size = 4)+
     ggsave("./Output/Plots/StockwithDelta1.PNG",
-           width = 30,
-           height = 30,
+           width = 12,
+           height = 12,
            units = "cm")
   
   ggplot(delta_data,
@@ -30,10 +29,10 @@ delta_data <- GBM_data(nsim = 1, setSeed = T, seed = "0806", dt = 1/1000, S0 = 1
     geom_label_repel(aes(label = paste(ifelse(time %% 0.25 == 0, round(Delta, 2),""))),
                      segment.curvature = -0.1,
                      max.overlaps = Inf,
-                     size = 11)+
+                     size = 4)+
     ggsave("./Output/Plots/StockwithDelta2.PNG",
-           width = 30,
-           height = 30,
+           width = 12,
+           height = 12,
            units = "cm")
   
 #Cashflow approach
@@ -124,8 +123,8 @@ for(i in 1:Paths){
     
     annotate("label", x = 100, y = 50, label = paste0("SE=",round(sd(Hedge1[,3]),2)), size = 6)+ 
     ggsave("./Output/Plots/Deltahedge4.PNG",
-           width = 16,
-           height = 16,
+           width = 12,
+           height = 12,
            units = "cm")
   
   Hedge2 %>% 
@@ -145,12 +144,12 @@ for(i in 1:Paths){
     
     annotate("label", x = 100, y = 50, label = paste0("SE=",round(sd(Hedge2[,3]),2)), size = 6)+
     ggsave("./Output/Plots/Deltahedge1000.PNG",
-           width = 16,
-           height = 16,
+           width = 12,
+           height = 12,
            units = "cm")
 
-#Takes long time to run so output has been saved
-#hedge 1:1000 times 
+# Takes long time to run so output has been saved
+# hedge 1:1000 times
 # simhedges <- data.frame(n = c(1:9,1:9*10,1:9*100,1:10*1000), SE = c(1:9,1:9*10,1:9*100,1:10*1000))
 # for (j in c(1:9,1:9*10,1:9*100,1:10*1000)){
 #   loop_time <- Sys.time()
@@ -170,13 +169,13 @@ for(i in 1:Paths){
 #       ),
 #       cashflow = cashflow*exp(r*(1-time)),
 #       cumflow = cumsum(cashflow))
-#     
+# 
 #     Hedge3[i, 1] <- (data %>% pull(value) %>% rev())[1]
-#     
+# 
 #     Hedge3[i, 2] <- (data %>%
-#                        pull(cumflow) %>% 
+#                        pull(cumflow) %>%
 #                        rev())[1]
-#     
+# 
 #     Hedge3[i, 3] <- abs(max(Hedge3[i, 1]-K, 0)-Hedge3[i, 2])
 #   }
 #   print(sd(Hedge3[,3]))
@@ -185,7 +184,7 @@ for(i in 1:Paths){
 # }
 # end_time <- Sys.time()
 # end_time-start_time
-#Saving data for recreation
+# # Saving data for recreation
 # save(simhedges, file = "./Output/simhedges.Rdata")
 load("./Output/simhedges.Rdata")
 
@@ -197,14 +196,14 @@ simhedges[1:1000,] %>%
   geom_point(size = 0.75)+
   # geom_hline(yintercept = 0,
   #            size = 1)+
-  scale_x_log10(expand = c(0.01,0,0.01,0))+
+  scale_x_log10(expand = c(0,0))+
   scale_y_log10()+
   # geom_smooth(se=F,
   #             method = "lm")+
   annotate("label", x = 100, y = 3, label = paste("Slope=-0.5"), size = 6)+
   ggsave("./Output/Plots/Hedgeerror.PNG",
-         width = 16,
-         height = 16,
+         width = 12,
+         height = 12,
          units = "cm")
 
 #Commented out and saved
@@ -278,8 +277,8 @@ simhedges[1:1000,] %>%
 # }
 # save(wrongsimhedgeslow, file = "./Output/wrongsimhedgeslow.Rdata")
 # save(wrongsimhedgeshigh, file = "./Output/wrongsimhedgeshigh.Rdata")
-load(wrongsimhedgeslow)
-load(wrongsimhedgeshigh)
+load("./Output/wrongsimhedgeslow.Rdata")
+load("./Output/wrongsimhedgeshigh.Rdata")
 
 rbind(cbind(wrongsimhedgeslow, vol = "low"),
       cbind(wrongsimhedgeshigh, vol = "high")) %>% 
@@ -299,7 +298,7 @@ rbind(cbind(wrongsimhedgeslow, vol = "low"),
     strip.text.x = element_blank()
   )+
   ggsave("./Output/Plots/HedgeerrorWrongVol.PNG",
-         width = 32,
-         height = 16,
+         width = 24,
+         height = 12,
          units = "cm")
   

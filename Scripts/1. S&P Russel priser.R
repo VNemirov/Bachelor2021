@@ -30,7 +30,6 @@ ggplot(data = df_sp500,
             size = 0.25)+
   ylab("Lukke pris")+
   xlab("Dato")+
-  
   scale_y_continuous(expand = c(0,0))+
   scale_x_date(expand = c(0,0))+
   theme(legend.position=c(0.16,0.85),
@@ -41,6 +40,6 @@ ggplot(data = df_sp500,
                      values = c("turquoise", "salmon"),
                      labels = c("Russel 2000", "S&P 500"))+
   ggsave("./Output/Plots/S&P500-Russel2000 priser.PNG",
-         width = 16,
-         height = 6,
+         width = 15,
+         height = 5.5,
          units = "cm")

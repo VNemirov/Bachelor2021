@@ -4,7 +4,7 @@ endT = 1; sigma = 0.2; r = 0.05; K0 = 100 # Define K1 s.t. d1=0 (this maxes phi(
 #Creating data
 # gamma_data <-
   GBM_data(nsim = 1, setSeed = T, seed = "0806", dt = 1/1000, S0 = 100, sigma = 0.2) %>%
-    # filter(time %in% c(0:4/4)) %>%
+    filter(time %in% c(0:4/4)) %>%
     mutate(K1 = value*exp(sigma*(endT-time)+r*(endT-time)),
            d1C = (log(value/K0)+(r+sigma^2/2)*(endT-time))/(sigma*sqrt(endT-time)),
            d2C = d1C-sigma*sqrt(endT-time),
@@ -25,8 +25,8 @@ endT = 1; sigma = 0.2; r = 0.05; K0 = 100 # Define K1 s.t. d1=0 (this maxes phi(
            ),
            cumPnL = cumsum(PnL)) %>% tail()
   
-  GBM_data(nsim = 1, setSeed = F, seed = "0806", dt = 1/1000, S0 = 100, sigma = 0.2) %>%
-    filter(time %in% c(0:4/4)) %>%
+  GBM_data(nsim = 1, setSeed = T, seed = "0806", dt = 1/1000, S0 = 100, sigma = 0.2) %>%
+    # filter(time %in% c(0:4/4)) %>%
     mutate(K1 = value*exp(sigma*(endT-time)+r*(endT-time)),
            d1C = (log(value/K0)+(r+sigma^2/2)*(endT-time))/(sigma*sqrt(endT-time)),
            d2C = d1C-sigma*sqrt(endT-time),

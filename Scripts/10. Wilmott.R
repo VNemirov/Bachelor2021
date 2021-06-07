@@ -46,7 +46,6 @@ truehedge %>%
   scale_y_continuous(expand = c(0,0,0.05,0))+
   scale_x_continuous(expand = c(0,0,0.05,0))+
   scale_color_brewer(type = "qual", palette = 8)+
-  theme_minimal()+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/hedgetrue.PNG",
          width = 16,
@@ -66,7 +65,6 @@ ivhedge %>%
   scale_y_continuous(expand = c(0,0,0.05,0))+
   scale_x_continuous(expand = c(0,0,0.05,0))+
   scale_color_brewer(type = "qual", palette = 8)+
-  theme_minimal()+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/hedgeiv.PNG",
          width = 16,
@@ -85,7 +83,7 @@ rbind(cbind(truehedge, hedge = "1sand"),
   xlab("Tid")+ylab("PnL")+
   geom_line(show.legend = F)+
   scale_y_continuous(expand = c(0,0,0.05,0))+
-  scale_x_continuous(expand = c(0,0,0.05,0))+
+  scale_x_continuous(expand = c(0,0))+
   scale_color_brewer(type = "qual", palette = 8)+
   theme(
     strip.background = element_blank(),

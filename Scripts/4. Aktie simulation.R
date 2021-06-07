@@ -14,7 +14,7 @@ rbind(
   xlab("Tid")+ylab("Pris")+
   geom_line(show.legend = F)+
   scale_x_continuous(expand=c(0,0,0.1,0))+
-  
+  scale_y_continuous(expand=c(0,0,0.1,0))+
   facet_grid(cols = rev(vars(dt)))+
   ggsave("./Output/Plots/aktie.PNG",
          width = 16,

@@ -10,11 +10,11 @@
                   color = brewer.pal(3,"Dark2")[1],
                   size = 1.2)+
     geom_hline(yintercept = 0)+
-    scale_x_continuous(expand = c(0,0,0.1,0))+
+    scale_x_continuous(expand = c(0,0))+
     scale_y_continuous(expand = c(0,0))+
     ggsave("./Output/Plots/Call.PNG",
-           width = 8,
-           height = 8,
+           width = 12,
+           height = 12,
            units = "cm")
   
   ggplot(data.frame(S = c(80, 120), V = c(80-100,120-100)), aes(x = S, y = V))+
@@ -28,12 +28,11 @@
                   color = brewer.pal(3,"Dark2")[2],
                   size = 1.2)+
     geom_hline(yintercept = 0)+
-    scale_x_continuous(expand = c(0,0,0.1,0))+
+    scale_x_continuous(expand = c(0,0))+
     scale_y_continuous(expand = c(0,0))+
-    
     ggsave("./Output/Plots/Put.PNG",
-           width = 8,
-           height = 8,
+           width = 12,
+           height = 12,
            units = "cm")
 
   #Changing Params
@@ -161,8 +160,8 @@ melt(BS_MC_Price_estimator(mu = 0.05, sigma = 0.2, S = 100, endT = 0.75, K = 100
       
       theme(legend.position = "top")+
   ggsave("./Output/Plots/MCCalltime.PNG",
-         width = 12,
-         height = 12,
+         width = 10,
+         height = 10,
          units = "cm")
     
     #Changing risk free rate
@@ -191,8 +190,8 @@ melt(BS_MC_Price_estimator(mu = 0.05, sigma = 0.2, S = 100, endT = 0.75, K = 100
       
       theme(legend.position = "top")+
       ggsave("./Output/Plots/MCCallriskfree.PNG",
-             width = 12,
-             height = 12,
+             width = 10,
+             height = 10,
              units = "cm")
 
     #Changing volatility
@@ -225,8 +224,8 @@ melt(BS_MC_Price_estimator(mu = 0.05, sigma = 0.2, S = 100, endT = 0.75, K = 100
       
       theme(legend.position = "top")+
       ggsave("./Output/Plots/MCCallVolatility.PNG",
-             width = 12,
-             height = 12,
+             width = 10,
+             height = 10,
              units = "cm")
     
     

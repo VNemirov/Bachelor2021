@@ -65,35 +65,36 @@ SPY_options_25062021 <- SPY_options_25062021 %>%
                                              option = Option))
 
 SPX_options_25062021 %>% filter(CalcImpliedVol >= 0.01) %>%
-  ggplot(aes(x = log(Prices26052021$Price[1]/Strike), y = CalcImpliedVol, color = Option, size = (Vol)))+
+  ggplot(aes(x = log(Prices26052021$Price[1]/Strike), y = CalcImpliedVol, color = Option, size = Vol/2))+
   ylab(expression(sigma^i))+xlab("log-Moneyness")+ggtitle("SPX")+
   geom_point(show.legend = F)+
   # geom_point(aes(y = IV, shape = Option))+ #Comparing with supplied IV (looks fine)
   geom_vline(xintercept = 0)+
   geom_smooth(se = FALSE,
               size = 0.4)+
-  annotate("label", x = 0.1, y = 0.4, label = paste0("Volume af calls: ",
+  annotate("label", x = 0.1, y = 0.4, size = 5, label = paste0("Volume af calls: ",
                                                     filter(SPX_options_25062021, Option == "call") %>% 
                                                       pull(Vol) %>% 
                                                       sum()," \n",
                                                      " Volume af puts: ",
                                                     filter(SPX_options_25062021, Option == "put") %>% 
                                                       pull(Vol) %>% 
-                                                      sum()))+ 
+                                                      sum()))+
+  theme(legend.position = c(0.58,0.15))+
   ggsave("./Output/Plots/SPX.PNG",
-         width = 30,
-         height = 12,
+         width = 21+1/3,
+         height = 8,
          units = "cm")
 
 
 SPY_options_25062021 %>% filter(CalcImpliedVol >= 0.01) %>% 
-  ggplot(aes(x = log(Prices26052021$Price[2]/Strike), y = CalcImpliedVol, color = Option, size = (Vol)))+
+  ggplot(aes(x = log(Prices26052021$Price[2]/Strike), y = CalcImpliedVol, color = Option, size = Vol/2))+
   xlab("log-Moneyness")+ylab(expression(sigma^i))+ggtitle("SPY")+
   geom_point(show.legend = F)+
   geom_vline(xintercept = 0)+
   geom_smooth(se = FALSE,
               size = 0.4)+
-  annotate("label", x = 0.1, y = 0.4, label = paste0("Volume af calls: ",
+  annotate("label", x = 0.1, y = 0.4, size = 5, label = paste0("Volume af calls: ",
                                                      filter(SPY_options_25062021, Option == "call") %>% 
                                                        pull(Vol) %>% 
                                                        sum(),"\n",
@@ -101,9 +102,10 @@ SPY_options_25062021 %>% filter(CalcImpliedVol >= 0.01) %>%
                                                      filter(SPY_options_25062021, Option == "put") %>% 
                                                        pull(Vol) %>% 
                                                        sum()))+ 
+  theme(legend.position = c(0.58,0.15))+
   ggsave("./Output/Plots/SPY.PNG",
-         width = 30,
-         height = 12,
+         width = 21+1/3,
+         height = 8,
          units = "cm")
 
 #Comparing with the supplied IV's

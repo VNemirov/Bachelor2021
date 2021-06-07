@@ -54,12 +54,11 @@ ggplot(data.frame(s = c(60,140)), aes(x = s))+
                             endT = 0.25),
                 size = 2)+
   scale_y_continuous(expand = c(0,0,0.01,0))+
-  
   ggtitle("Delta")+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/Delta.PNG",
-         width = 12,
-         height = 12,
+         width = 8,
+         height = 8,
          units = "cm")
 
 #Delta with option
@@ -85,8 +84,8 @@ data.frame(S = c(60,140)) %>%
   scale_y_continuous(expand=c(0,0))+
   
   ggsave("./Output/Plots/OptionwithDelta.PNG",
-         width = 12,
-         height = 12,
+         width = 8,
+         height = 8,
          units = "cm")
 
 #Gamma
@@ -104,8 +103,8 @@ ggplot(data.frame(s = c(60,140)), aes(x = s))+
   ggtitle("Gamma")+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/Gamma.PNG",
-         width = 12,
-         height = 12,
+         width = 8,
+         height = 8,
          units = "cm")
 
 #rho
@@ -123,8 +122,8 @@ ggplot(data.frame(s = c(60,140)), aes(x = s))+
   ggtitle("Rho")+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/Rho.PNG",
-         width = 12,
-         height = 12,
+         width = 8,
+         height = 8,
          units = "cm")
 
 #Theta
@@ -142,8 +141,8 @@ ggplot(data.frame(s = c(60,140)), aes(x = s))+
   ggtitle("Theta")+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/Theta.PNG",
-         width = 12,
-         height = 12,
+         width = 8,
+         height = 8,
          units = "cm")
 
 #Vega
@@ -161,7 +160,7 @@ ggplot(data.frame(s = c(60,140)), aes(x = s))+
   ggtitle("Vega")+
   theme(plot.title = element_text(hjust = 0.5))+
   ggsave("./Output/Plots/Vega.PNG",
-         width = 12,
-         height = 12,
+         width = 8,
+         height = 8,
          units = "cm")
 
